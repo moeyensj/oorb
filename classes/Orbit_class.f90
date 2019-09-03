@@ -4644,9 +4644,12 @@ CONTAINS
           END IF
        END IF
 
+       ! Time of light emission from target is needed to calculate the solar motion correction
+       ! regardless of if a light-time correction is applied.
+       t_emit = getLightTimeCorrectedTime(this_1, observer_)
+
+       ! Light-time correction
        IF (lt_corr_) THEN
-          ! Light-time correction:
-          t_emit = getLightTimeCorrectedTime(this_1, observer_)
           IF (error) THEN
              CALL errorMessage("Orbit / getEphemeris (multiple)", &
                   "TRACE BACK 10", 1)

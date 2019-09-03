@@ -372,6 +372,7 @@ CONTAINS
        in_ndate,                     &
        in_date_ephems,               &
        in_dynmodel,                  &
+       lt_corr,                      &
        out_ephems,                   &
        error_code)
  
@@ -399,6 +400,8 @@ CONTAINS
     REAL(8), DIMENSION(in_ndate,2), INTENT(in)          :: in_date_ephems ! (1:ndate,1:2)
     ! in_model: "2"=2-body dynamical model, "N"=n-body dynamical model
     CHARACTER(len=1), INTENT(in)                        :: in_dynmodel
+    ! lt_corr: Return light-time corrected ephemeris and orbits
+    LOGICAL, INTENT(in), OPTIONAL                       :: lt_corr
     ! out_ephemn: output ephemeris, 33 columns per target and epoch:
     ! (1) modified julian date                                                                
     ! (2) right ascension (deg)                                                               
@@ -500,6 +503,7 @@ CONTAINS
     INTEGER :: i, &
          j
     LOGICAL, DIMENSION(10) :: perturbers
+    LOGICAL :: lt_corr_
 
     ! Init
     errstr = ""
@@ -531,6 +535,11 @@ CONTAINS
        CALL rotateToEquatorial(observers(i))
        CALL NULLIFY(t)
     END DO
+    IF (PRESENT(lt_corr)) THEN
+      lt_corr_ = lt_corr
+    ELSE
+      lt_corr_ = .TRUE.
+    END IF
 
     ! Loop over orbits:
     DO i=1,SIZE(in_orbits,dim=1)
@@ -581,6 +590,7 @@ CONTAINS
        CALL getEphemerides(orb_arr, &
             observers, &
             ephemerides, &
+            lt_corr=lt_corr_, &
             this_lt_corr_arr=orb_lt_corr_arr)
        IF (error) THEN
           ! Error in getEphemerides()
@@ -869,6 +879,7 @@ CONTAINS
        in_ndate,                     &
        in_date_ephems,               &
        in_dynmodel,                  &
+       lt_corr,                      &
        out_ephems,                   &
        error_code)
  
@@ -896,6 +907,8 @@ CONTAINS
     REAL(8), DIMENSION(in_ndate,2), INTENT(in)          :: in_date_ephems ! (1:ndate,1:2)
     ! in_model: "2"=2-body dynamical model, "N"=n-body dynamical model
     CHARACTER(len=1), INTENT(in)                        :: in_dynmodel
+    ! lt_corr: Return light-time corrected ephemeris and orbits
+    LOGICAL, INTENT(in), OPTIONAL                       :: lt_corr
     ! out_ephemn: output ephemeris, 33 columns per target and epoch:
     ! (1) modified julian date                                                                
     ! (2) right ascension (deg)                                                               
@@ -955,6 +968,7 @@ CONTAINS
     INTEGER :: i, &
          j
     LOGICAL, DIMENSION(10) :: perturbers
+    LOGICAL :: lt_corr_
 
     ! Init
     errstr = ""
@@ -986,6 +1000,11 @@ CONTAINS
        CALL rotateToEquatorial(observers(i))
        CALL NULLIFY(t)
     END DO
+    IF (PRESENT(lt_corr)) THEN
+      lt_corr_ = lt_corr
+    ELSE
+      lt_corr_ = .TRUE.
+    END IF
 
     ! Loop over orbits:
     DO i=1,SIZE(in_orbits,dim=1)
@@ -1036,6 +1055,7 @@ CONTAINS
        CALL getEphemerides(orb_arr, &
             observers, &
             ephemerides, &
+            lt_corr=lt_corr_, &
             this_lt_corr_arr=orb_lt_corr_arr)
        IF (error) THEN
           ! Error in getEphemerides()

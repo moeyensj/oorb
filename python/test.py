@@ -138,6 +138,48 @@ if __name__ == "__main__":
         for j in range(0, 2):
             print(eph[i][j])
 
+    print("calling oorb_ephemeris_basic (n-body)")
+    eph, err = pyoorb.pyoorb.oorb_ephemeris_basic(in_orbits=orbits,
+                                                 in_obscode=obscode,
+                                                 in_date_ephems=ephem_dates,
+                                                 in_dynmodel='N')
+    if err != 0: raise Exception("OpenOrb Exception: error code = %d" % err)
+    for i in range(0, 3):
+        for j in range(0, 2):
+            print(eph[i][j])
+
+    print("calling oorb_ephemeris_basic (n-body) [no light time correction]")
+    eph, err = pyoorb.pyoorb.oorb_ephemeris_basic(in_orbits=orbits,
+                                                 in_obscode=obscode,
+                                                 in_date_ephems=ephem_dates,
+                                                 in_dynmodel='N',
+                                                 lt_corr=False)
+    if err != 0: raise Exception("OpenOrb Exception: error code = %d" % err)
+    for i in range(0, 3):
+        for j in range(0, 2):
+            print(eph[i][j])
+
+    print("calling oorb_ephemeris_basic (2-body)")
+    eph, err = pyoorb.pyoorb.oorb_ephemeris_basic(in_orbits=orbits,
+                                                 in_obscode=obscode,
+                                                 in_date_ephems=ephem_dates,
+                                                 in_dynmodel='2')
+    if err != 0: raise Exception("OpenOrb Exception: error code = %d" % err)
+    for i in range(0, 3):
+        for j in range(0, 2):
+            print(eph[i][j])
+
+    print("calling oorb_ephemeris_basic (2-body) [no light time correction]")
+    eph, err = pyoorb.pyoorb.oorb_ephemeris_basic(in_orbits=orbits,
+                                                 in_obscode=obscode,
+                                                 in_date_ephems=ephem_dates,
+                                                 in_dynmodel='2',
+                                                 lt_corr=False)
+    if err != 0: raise Exception("OpenOrb Exception: error code = %d" % err)
+    for i in range(0, 3):
+        for j in range(0, 2):
+            print(eph[i][j])
+
     print("calling oorb_ephemeris_full (n-body)")
     eph, err = pyoorb.pyoorb.oorb_ephemeris_full(in_orbits=orbits,
                                                  in_obscode=obscode,
@@ -148,11 +190,33 @@ if __name__ == "__main__":
         for j in range(0, 2):
             print(eph[i][j])
 
+    print("calling oorb_ephemeris_full (n-body) [no light time correction]")
+    eph, err = pyoorb.pyoorb.oorb_ephemeris_full(in_orbits=orbits,
+                                                 in_obscode=obscode,
+                                                 in_date_ephems=ephem_dates,
+                                                 in_dynmodel='N',
+                                                 lt_corr=False)
+    if err != 0: raise Exception("OpenOrb Exception: error code = %d" % err)
+    for i in range(0, 3):
+        for j in range(0, 2):
+            print(eph[i][j])
+
     print("calling oorb_ephemeris_full (2-body)")
     eph, err = pyoorb.pyoorb.oorb_ephemeris_full(in_orbits=orbits,
                                                  in_obscode=obscode,
                                                  in_date_ephems=ephem_dates,
                                                  in_dynmodel='2')
+    if err != 0: raise Exception("OpenOrb Exception: error code = %d" % err)
+    for i in range(0, 3):
+        for j in range(0, 2):
+            print(eph[i][j])
+
+    print("calling oorb_ephemeris_full (2-body) [no light time correction]")
+    eph, err = pyoorb.pyoorb.oorb_ephemeris_full(in_orbits=orbits,
+                                                 in_obscode=obscode,
+                                                 in_date_ephems=ephem_dates,
+                                                 in_dynmodel='2',
+                                                 lt_corr=False)
     if err != 0: raise Exception("OpenOrb Exception: error code = %d" % err)
     for i in range(0, 3):
         for j in range(0, 2):
